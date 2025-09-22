@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Agendamento } from '../types/agendamento';
 import { formatDate, formatTime } from '../utils/dateUtils';
 
@@ -15,6 +15,14 @@ export const AgendamentoTable: React.FC<AgendamentoTableProps> = ({
   onDelete,
   loading = false,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 10;
+
+  const totalPaginas = Math.ceil(agendamentos.length / itensPorPagina);
+  const indexInicial = (paginaAtual - 1) * itensPorPagina;
+  const indexFinal = indexInicial + itensPorPagina;
+  const agendamentosPagina = agendamentos.slice(indexInicial, indexFinal);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center py-8">
@@ -61,7 +69,7 @@ export const AgendamentoTable: React.FC<AgendamentoTableProps> = ({
         
         {/* Corpo */}
         <tbody className="bg-white divide-y divide-gray-200">
-          {agendamentos.map((agendamento) => (
+          {agendamentosPagina.map((agendamento) => (
             <tr key={agendamento.id} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-gray-900">
@@ -110,6 +118,29 @@ export const AgendamentoTable: React.FC<AgendamentoTableProps> = ({
           ))}
         </tbody>
       </table>
+
+      {/* Paginação */}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => setPaginaAtual((p) => Math.max(p - 1, 1))}
+          disabled={paginaAtual === 1}
+          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Anterior
+        </button>
+
+        <span className="text-sm text-gray-600">
+          Página {paginaAtual} de {totalPaginas}
+        </span>
+
+        <button
+          onClick={() => setPaginaAtual((p) => Math.min(p + 1, totalPaginas))}
+          disabled={paginaAtual === totalPaginas}
+          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Próxima
+        </button>
+      </div>
     </div>
   );
 };
