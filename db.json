@@ -1,0 +1,32 @@
+{
+  "agendamentos": [
+    {
+      "id": "2",
+      "descricao": "Apresentação de resultados",
+      "data": "2024-09-26",
+      "horario": "10:00",
+      "responsavel": "Maria Santos"
+    },
+    {
+      "id": "3",
+      "descricao": "Workshop de treinamento",
+      "data": "2024-09-27",
+      "horario": "09:00",
+      "responsavel": "Pedro Costa"
+    },
+    {
+      "id": "4",
+      "descricao": "Revisão de código",
+      "data": "2024-09-28",
+      "horario": "16:00",
+      "responsavel": "Ana Oliveira"
+    },
+    {
+      "id": "5",
+      "descricao": "Planejamento sprint",
+      "data": "2024-09-30",
+      "horario": "11:00",
+      "responsavel": "Carlos Mendes"
+    }
+  ]
+}
